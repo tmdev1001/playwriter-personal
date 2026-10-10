@@ -14,8 +14,6 @@ backend:
 # Lets `npm run cms` + `npm start` edit content locally without logging in.
 local_backend: true
 
-site_url: https://malcolmrussell-einhorn.com
-display_url: https://malcolmrussell-einhorn.com
 logo_url: /assets/favicon.svg
 
 media_folder: src/assets/uploads
@@ -280,7 +278,6 @@ collections:
           - { label: Name, name: title, widget: string }
           - { label: Title under the name, name: tagline, widget: string }
           - { label: Description for search engines, name: description, widget: text, hint: "One or two sentences shown in Google results." }
-          - { label: Website address, name: url, widget: string, hint: "Change only if the domain name changes." }
           - { label: Email address, name: email, widget: string }
           - { label: Facebook page, name: facebook, widget: string, required: false, hint: "Paste the full address of the page." }
           - { label: Instagram profile, name: instagram, widget: string, required: false, hint: "Paste the full address of the profile." }

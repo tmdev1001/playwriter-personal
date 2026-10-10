@@ -42,15 +42,31 @@ Notes:
 
 1. Push this folder to a private GitHub repository, with `main` as the default branch.
 2. In Netlify: **Add new site → Import from Git** and pick the repo. The build settings come from `netlify.toml`.
-3. **Forms:** Site configuration → Forms → *Enable form detection*, then trigger a redeploy. Two forms will appear: `contact` and `mailing-list`.
-   Under Forms → *Form notifications*, add an email notification to russelleinhornml@gmail.com for each form.
-4. **Editing page login:** Site configuration → Identity → *Enable Identity*. Set registration to **Invite only**. Under
-   Identity → Services, enable **Git Gateway**. Then invite Malcolm's email from the Identity tab. The invite link
-   opens the site, which forwards him to `/admin/` to set a password.
-5. **Domain:** register it in Malcolm's name (Netlify Domains, Namecheap or Cloudflare, about $10–15/year), add it under
-   Domain management, and Netlify sets up HTTPS automatically.
-6. Once the domain is final, update the domain in three places: `url` in `src/_data/site.json` (or Settings → Site settings), and `site_url` / `display_url` in
-   `src/admin/config.yml`.
+Forms and Identity each have their own page in the project's left-hand menu, not under Project configuration
+(links below use this project's name):
+
+3. **Forms:** [Forms](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/forms) → *Enable form detection*. Forms are
+   picked up from the next deploy onward, so deploy once afterwards. Two forms will appear: `contact` and `mailing-list`.
+   Then go to [Forms → Submission notifications](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/forms?tab=notifications)
+   and add an email notification to russelleinhornml@gmail.com.
+4. **Editing page login:**
+   - [Identity](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity) → *Enable Identity*
+   - [Identity → Registration](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=registration#registration-preferences) → Registration preferences → *Configure* → **Invite only**
+   - [Identity → Services](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=services#git-gateway) → *Enable Git Gateway*
+   - [Identity → Users](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=users) → invite Malcolm's email. The invite link opens the site, which forwards him to `/admin/` to set a password.
+
+   **Note:** Netlify lists Git Gateway as deprecated. It keeps working on sites that have it enabled and still gets
+   security fixes, but no bug fixes. If it ever stops working, the fallback is Decap's `github` backend with Netlify's
+   GitHub OAuth provider. That only changes the `backend:` block in `src/admin/config.yml`, but Malcolm would then need a
+   free GitHub account with access to the repo.
+5. **Badge:** Project configuration → General → *Powered by Netlify badge* → off. New free-plan sites show it by
+   default; switching it off takes effect immediately, with no redeploy needed.
+6. **Domain:** register it in Malcolm's name (Netlify Domains, Namecheap or Cloudflare, about $10–15/year), add it under
+   Domain management, and Netlify sets up HTTPS automatically. Then **trigger one deploy** (Deploys → Trigger deploy).
+   Canonical links, share previews and the sitemap are built from Netlify's `URL` variable (`src/_data/siteUrl.js`), so they
+   switch to the new domain on that deploy with no file changes. `url` in `site.json` is only a fallback for local builds.
+
+Preview (before the domain): https://elaborate-rolypoly-9a5197.netlify.app/
 
 **Free-plan budget:** Netlify's free plan gives 300 credits a month. Each published change (every CMS save) costs 15
 credits, so about 20 edits a month; bandwidth is 20 credits/GB. That's plenty for this site, but worth mentioning to
@@ -79,8 +95,8 @@ Buttondown (both free at this size).
 ### Open questions for Malcolm
 
 1. **Domain.** In email he suggested *malcolmrusselleinhorndrama.com*; the document says "something along the lines of
-   *theater@malcolmrussell-einhorn.com*", which is written like an email address. The site currently uses
-   `malcolmrussell-einhorn.com` as a placeholder.
+   *theater@malcolmrussell-einhorn.com*", which is written like an email address. Nothing in the code needs changing
+   once he decides (see step 6 above).
 2. **Nov 6 reading details:** start time, whether it's free and open to the public, and any RSVP/ticket link.
    (Settings → Featured event has fields for all three.)
 3. **Plays text tense.** His paragraph says the play "has had two public readings … the second … on November 6, 2026",

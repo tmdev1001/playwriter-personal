@@ -31,14 +31,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("absoluteUrl", (path, base) => new URL(path, base).href);
 
   // Structured data that helps search engines show the site for his name.
-  eleventyConfig.addFilter("personSchema", (site, image) => {
+  eleventyConfig.addFilter("personSchema", (site, image, url) => {
     const sameAs = [site.facebook, site.instagram].filter(Boolean);
     return {
       "@context": "https://schema.org",
       "@type": "Person",
       name: site.title,
       jobTitle: site.tagline,
-      url: site.url,
+      url,
       image,
       ...(sameAs.length && { sameAs }),
     };
