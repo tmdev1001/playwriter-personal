@@ -45,15 +45,17 @@ Notes:
 Forms and Identity each have their own page in the project's left-hand menu, not under Project configuration
 (links below use this project's name):
 
-3. **Forms:** [Forms](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/forms) → *Enable form detection*. Forms are
+3. **Forms:** [Forms](https://app.netlify.com/projects/malcolm-russell-einhorn/forms) → *Enable form detection*. Forms are
    picked up from the next deploy onward, so deploy once afterwards. Two forms will appear: `contact` and `mailing-list`.
-   Then go to [Forms → Submission notifications](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/forms?tab=notifications)
+   Then go to [Forms → Submission notifications](https://app.netlify.com/projects/malcolm-russell-einhorn/forms?tab=notifications)
    and add an email notification to russelleinhornml@gmail.com.
-4. **Editing page login:**
-   - [Identity](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity) → *Enable Identity*
-   - [Identity → Registration](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=registration#registration-preferences) → Registration preferences → *Configure* → **Invite only**
-   - [Identity → Services](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=services#git-gateway) → *Enable Git Gateway*
-   - [Identity → Users](https://app.netlify.com/projects/elaborate-rolypoly-9a5197/identity?tab=users) → invite Malcolm's email. The invite link opens the site, which forwards him to `/admin/` to set a password.
+4. **Editing page login.** Current status: Identity is on, but Git Gateway is **off**, so nobody can edit through `/admin/`
+   until Malcolm asks for access. When he does, do these steps **in this order**, so registration is closed before
+   editing is possible:
+   - [Identity](https://app.netlify.com/projects/malcolm-russell-einhorn/identity) → *Enable Identity*
+   - [Identity → Registration](https://app.netlify.com/projects/malcolm-russell-einhorn/identity?tab=registration#registration-preferences) → Registration preferences → *Configure* → **Invite only**
+   - [Identity → Services](https://app.netlify.com/projects/malcolm-russell-einhorn/identity?tab=services#git-gateway) → *Enable Git Gateway*
+   - [Identity → Users](https://app.netlify.com/projects/malcolm-russell-einhorn/identity?tab=users) → invite Malcolm's email. The invite link opens the site, which forwards him to `/admin/` to set a password.
 
    **Note:** Netlify lists Git Gateway as deprecated. It keeps working on sites that have it enabled and still gets
    security fixes, but no bug fixes. If it ever stops working, the fallback is Decap's `github` backend with Netlify's
@@ -66,7 +68,7 @@ Forms and Identity each have their own page in the project's left-hand menu, not
    Canonical links, share previews and the sitemap are built from Netlify's `URL` variable (`src/_data/siteUrl.js`), so they
    switch to the new domain on that deploy with no file changes. `url` in `site.json` is only a fallback for local builds.
 
-Preview (before the domain): https://elaborate-rolypoly-9a5197.netlify.app/
+Preview (before the domain): https://malcolm-russell-einhorn.netlify.app/
 
 **Free-plan budget:** Netlify's free plan gives 300 credits a month. Each published change (every CMS save) costs 15
 credits, so about 20 edits a month; bandwidth is 20 credits/GB. That's plenty for this site, but worth mentioning to
