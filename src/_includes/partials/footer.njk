@@ -1,0 +1,39 @@
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <section class="signup" aria-labelledby="signup-title">
+      <p class="eyebrow eyebrow--light">Mailing list</p>
+      <h2 id="signup-title" class="signup__title">Stay in touch</h2>
+      <p class="signup__text">Hear about upcoming readings, productions, and news.</p>
+      <form class="signup__form" name="mailing-list" method="POST" action="/subscribed/" data-netlify="true" netlify-honeypot="company">
+        <input type="hidden" name="form-name" value="mailing-list">
+        <p class="visually-hidden"><label>Leave this empty: <input name="company" tabindex="-1" autocomplete="off"></label></p>
+        <label class="visually-hidden" for="signup-name">Name</label>
+        <input id="signup-name" type="text" name="name" placeholder="Name" autocomplete="name">
+        <label class="visually-hidden" for="signup-email">Email</label>
+        <input id="signup-email" type="email" name="email" placeholder="Email address" autocomplete="email" required>
+        <button class="btn btn--light" type="submit">Sign up</button>
+      </form>
+    </section>
+
+    <div class="site-footer__contact">
+      <p class="eyebrow eyebrow--light">Contact</p>
+      <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      {%- if site.facebook or site.instagram %}
+      <ul class="social">
+        {%- if site.facebook %}<li><a href="{{ site.facebook }}" rel="noopener">Facebook</a></li>{% endif %}
+        {%- if site.instagram %}<li><a href="{{ site.instagram }}" rel="noopener">Instagram</a></li>{% endif %}
+      </ul>
+      {%- endif %}
+    </div>
+  </div>
+
+  <div class="wrap site-footer__base">
+    <p>&copy; {{ build.year }} {{ site.title }}</p>
+    <ul class="footer-nav">
+      <li><a href="/about/">About</a></li>
+      <li><a href="/plays/">Plays</a></li>
+      <li><a href="/press/">News &amp; Press</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+  </div>
+</footer>

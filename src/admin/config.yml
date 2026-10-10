@@ -1,0 +1,293 @@
+# Editing page for the website (Decap CMS), available at /admin/.
+# Every save publishes the change; the live site updates about a minute later.
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "Add {{collection}} “{{slug}}”"
+    update: "Update {{collection}} “{{slug}}”"
+    delete: "Delete {{collection}} “{{slug}}”"
+    uploadMedia: "Upload “{{path}}”"
+    deleteMedia: "Delete “{{path}}”"
+
+# Lets `npm run cms` + `npm start` edit content locally without logging in.
+local_backend: true
+
+site_url: https://malcolmrussell-einhorn.com
+display_url: https://malcolmrussell-einhorn.com
+logo_url: /assets/favicon.svg
+
+media_folder: src/assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  # ------------------------------------------------------------------ News
+  - name: news
+    label: News
+    label_singular: News item
+    description: >-
+      News appears on the News & Press page, newest first. The three most recent
+      items also appear at the bottom of the Home page.
+    folder: src/news
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} ({{date}})"
+    sortable_fields: [date, title]
+    editor: { preview: false }
+    fields:
+      - { label: Headline, name: title, widget: string }
+      - label: Date
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: MMMM D, YYYY
+        time_format: false
+        picker_utc: true
+      - label: Text
+        name: body
+        widget: markdown
+        modes: [rich_text]
+        buttons: [bold, italic, link, bulleted-list]
+        editor_components: []
+      - { label: Photo, name: image, widget: image, required: false, choose_url: false }
+      - label: Photo description
+        name: image_alt
+        widget: string
+        required: false
+        hint: A few words describing the photo, for visitors who use screen readers.
+      - label: Link
+        name: link
+        widget: string
+        required: false
+        hint: For example, a ticketing page or an online article. Paste the full address.
+      - { label: Link text, name: link_label, widget: string, required: false, hint: "Defaults to “Read more”." }
+
+  # ----------------------------------------------------------------- Plays
+  - name: plays
+    label: Plays
+    label_singular: Play
+    description: Each play appears on the Plays page, in the order you choose.
+    folder: src/plays
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    editor: { preview: false }
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Order on the Plays page, name: order, widget: number, value_type: int, default: 1, min: 1, hint: "1 appears first." }
+      - label: Feature on the Home page
+        name: featured
+        widget: boolean
+        default: false
+        hint: Turn this on for one play only.
+      - { label: Short description, name: tagline, widget: string, required: false, hint: "For example, “A two-person psychological drama”." }
+      - { label: One-sentence summary (Home page), name: teaser, widget: text, required: false }
+      - label: Synopsis
+        name: body
+        widget: markdown
+        modes: [rich_text]
+        buttons: [bold, italic, link]
+        editor_components: []
+      - { label: Main photo, name: image, widget: image, required: false, choose_url: false }
+      - { label: Main photo description, name: image_alt, widget: string, required: false }
+      - label: Reading and production history
+        name: history
+        widget: markdown
+        required: false
+        modes: [rich_text]
+        buttons: [bold, italic, link]
+        editor_components: []
+      - label: Readings and productions
+        name: readings
+        widget: list
+        required: false
+        summary: "{{fields.date}} · {{fields.venue}}"
+        fields:
+          - label: Date
+            name: date
+            widget: datetime
+            format: YYYY-MM-DD
+            date_format: MMMM D, YYYY
+            time_format: false
+            picker_utc: true
+          - { label: Venue, name: venue, widget: string }
+          - { label: City, name: city, widget: string, required: false }
+      - label: Cast and creative team
+        name: credits
+        widget: list
+        required: false
+        summary: "{{fields.role}}: {{fields.name}}"
+        fields:
+          - { label: Role, name: role, widget: string, hint: "A character name, or “Director”." }
+          - { label: Name, name: name, widget: string }
+      - label: Photos
+        name: gallery
+        widget: list
+        required: false
+        summary: "{{fields.alt}}"
+        hint: One photo is shown full width; two or more are shown as a gallery.
+        fields:
+          - { label: Photo, name: image, widget: image, choose_url: false }
+          - { label: Photo description, name: alt, widget: string }
+          - { label: Caption, name: caption, widget: string, required: false }
+
+  # ----------------------------------------------------------------- Pages
+  - name: pages
+    label: Pages
+    description: The text and photos on each page.
+    editor: { preview: false }
+    files:
+      - name: home
+        label: Home page
+        file: src/_data/home.json
+        fields:
+          - label: Welcome text
+            name: intro
+            widget: markdown
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+          - { label: Headshot, name: headshot, widget: image, choose_url: false, hint: "Works best with a plain white background." }
+          - { label: Headshot description, name: headshot_alt, widget: string }
+          - { label: Wide photo, name: banner, widget: image, required: false, choose_url: false, hint: "Shown full width below the welcome." }
+          - { label: Wide photo description, name: banner_alt, widget: string, required: false }
+          - { label: Quote, name: quote, widget: text, required: false }
+          - { label: Photo beside the quote, name: quote_image, widget: image, required: false, choose_url: false }
+          - { label: Quote photo description, name: quote_image_alt, widget: string, required: false }
+
+      - name: about
+        label: About Me page
+        file: src/_data/about.json
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - label: Text
+            name: body
+            widget: markdown
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+            hint: Also used as the biography in the press kit.
+          - { label: Photo, name: image, widget: image, required: false, choose_url: false }
+          - { label: Photo description, name: image_alt, widget: string, required: false }
+
+      - name: plays_page
+        label: Plays page
+        file: src/_data/playsPage.json
+        fields:
+          - label: Introduction
+            name: intro
+            widget: markdown
+            required: false
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+          - label: Plays in development
+            name: in_progress
+            widget: markdown
+            required: false
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+
+      - name: press
+        label: News & Press page (press kit)
+        file: src/_data/press.json
+        fields:
+          - label: Short biography
+            name: short_bio
+            widget: markdown
+            required: false
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+            hint: A one-paragraph version for programs and press. The full biography comes from the About Me page.
+          - label: Press photos
+            name: photos
+            widget: list
+            summary: "{{fields.caption}}"
+            hint: Visitors can download these. Upload the highest-resolution version you have.
+            fields:
+              - { label: Photo, name: image, widget: image, choose_url: false }
+              - { label: Photo description, name: alt, widget: string }
+              - { label: Caption, name: caption, widget: string, required: false }
+          - label: Press coverage
+            name: coverage
+            widget: list
+            required: false
+            summary: "{{fields.outlet}}: {{fields.headline}}"
+            fields:
+              - { label: Headline, name: headline, widget: string }
+              - { label: Publication, name: outlet, widget: string, required: false }
+              - label: Date
+                name: date
+                widget: datetime
+                required: false
+                format: YYYY-MM-DD
+                date_format: MMMM D, YYYY
+                time_format: false
+                picker_utc: true
+              - { label: Link, name: url, widget: string }
+
+      - name: contact
+        label: Contact page
+        file: src/_data/contact.json
+        fields:
+          - label: Introduction
+            name: intro
+            widget: markdown
+            required: false
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+
+  # -------------------------------------------------------------- Settings
+  - name: settings
+    label: Settings
+    editor: { preview: false }
+    files:
+      - name: event
+        label: Featured event (Home page)
+        file: src/_data/event.json
+        fields:
+          - { label: Show on the Home page, name: show, widget: boolean, default: true }
+          - { label: Kind of event, name: kind, widget: string, default: reading, hint: "For example, “public reading” or “production”. Shown as “Upcoming …”, and as “Recent …” once the date has passed." }
+          - { label: Play title, name: title, widget: string }
+          - label: Date
+            name: date
+            widget: datetime
+            format: YYYY-MM-DD
+            date_format: MMMM D, YYYY
+            time_format: false
+            picker_utc: true
+          - { label: Time, name: time, widget: string, required: false, hint: "For example, “7:00 pm”." }
+          - { label: Venue, name: venue, widget: string }
+          - { label: Address, name: address, widget: string, required: false }
+          - label: Details
+            name: details
+            widget: markdown
+            required: false
+            modes: [rich_text]
+            buttons: [bold, italic, link]
+            editor_components: []
+          - { label: Button link, name: link, widget: string, required: false, hint: "For example, a ticket or RSVP page." }
+          - { label: Button text, name: link_label, widget: string, required: false, hint: "For example, “Reserve a seat”." }
+
+      - name: site
+        label: Site settings
+        file: src/_data/site.json
+        fields:
+          - { label: Name, name: title, widget: string }
+          - { label: Title under the name, name: tagline, widget: string }
+          - { label: Description for search engines, name: description, widget: text, hint: "One or two sentences shown in Google results." }
+          - { label: Website address, name: url, widget: string, hint: "Change only if the domain name changes." }
+          - { label: Email address, name: email, widget: string }
+          - { label: Facebook page, name: facebook, widget: string, required: false, hint: "Paste the full address of the page." }
+          - { label: Instagram profile, name: instagram, widget: string, required: false, hint: "Paste the full address of the profile." }
+          - label: Photo style
+            name: photo_style
+            widget: select
+            default: color
+            options:
+              - { label: Color, value: color }
+              - { label: Black & white, value: bw }

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#171615"/>
+  <polygon points="40,10 46,10 24,54 18,54" fill="#8e2a1f"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#f3efe7">M</text>
+</svg>

@@ -1,0 +1,46 @@
+---
+layout: layouts/base.njk
+title: Contact
+permalink: /contact/
+description: Contact playwright Malcolm Russell-Einhorn.
+---
+<header class="page-head wrap">
+  <h1 class="page-title">Contact</h1>
+</header>
+
+<div class="wrap contact">
+  <div class="contact__details">
+    {%- if contact.intro %}
+    <div class="prose">{{ contact.intro | md | safe }}</div>
+    {%- endif %}
+    <h2 class="facts-title">Email</h2>
+    <p class="contact__email"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    {%- if site.facebook or site.instagram %}
+    <h2 class="facts-title">Follow</h2>
+    <ul class="social social--dark">
+      {%- if site.facebook %}<li><a href="{{ site.facebook }}" rel="noopener">Facebook</a></li>{% endif %}
+      {%- if site.instagram %}<li><a href="{{ site.instagram }}" rel="noopener">Instagram</a></li>{% endif %}
+    </ul>
+    {%- endif %}
+  </div>
+
+  <form class="contact-form" name="contact" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company">
+    <h2 class="contact-form__title">Send a message</h2>
+    <input type="hidden" name="form-name" value="contact">
+    <p class="visually-hidden"><label>Leave this empty: <input name="company" tabindex="-1" autocomplete="off"></label></p>
+    <div class="field">
+      <label for="c-name">Name</label>
+      <input id="c-name" type="text" name="name" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="c-email">Email</label>
+      <input id="c-email" type="email" name="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="c-message">Message</label>
+      <textarea id="c-message" name="message" rows="6" required></textarea>
+    </div>
+    <label class="check"><input type="checkbox" name="mailing_list" value="yes"> Add me to the mailing list</label>
+    <button class="btn" type="submit">Send message</button>
+  </form>
+</div>

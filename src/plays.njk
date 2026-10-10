@@ -1,0 +1,91 @@
+---
+layout: layouts/base.njk
+title: Plays
+permalink: /plays/
+description: Plays by Malcolm Russell-Einhorn, including Fragments, a two-person psychological drama set against the upheavals in psychology and psychiatry of the early 1980s.
+---
+<header class="page-head wrap">
+  <h1 class="page-title">Plays</h1>
+  {%- if playsPage.intro %}
+  <div class="page-intro prose">{{ playsPage.intro | md | safe }}</div>
+  {%- endif %}
+</header>
+
+{%- for play in collections.plays %}
+<article class="play" id="{{ play.fileSlug }}" aria-labelledby="{{ play.fileSlug }}-title">
+  <header class="wrap play__head">
+    <h2 id="{{ play.fileSlug }}-title" class="play-title play-title--xl">{{ play.data.title }}</h2>
+    {%- if play.data.tagline %}
+    <p class="play-tagline">{{ play.data.tagline }}</p>
+    {%- endif %}
+  </header>
+
+  <div class="wrap play__grid">
+    <div class="play__synopsis prose">
+      {{ play.templateContent | safe }}
+    </div>
+    {%- if play.data.image %}
+    <figure class="play__photo">
+      <img class="photo" src="{{ play.data.image }}" alt="{{ play.data.image_alt }}" sizes="(min-width: 56em) 40vw, 100vw">
+    </figure>
+    {%- endif %}
+  </div>
+
+  {%- if play.data.history or play.data.readings or play.data.credits %}
+  <div class="wrap play__grid play__grid--history">
+    {%- if play.data.readings or play.data.credits %}
+    <div class="play__facts">
+      {%- if play.data.readings %}
+      <h3 class="facts-title">Readings</h3>
+      <ul class="facts">
+        {%- for r in play.data.readings %}
+        <li>
+          <time datetime="{{ r.date | isoDate }}">{{ r.date | date("long") }}</time>
+          <span>{{ r.venue }}{% if r.city %}, {{ r.city }}{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+      {%- if play.data.credits %}
+      <h3 class="facts-title">Cast &amp; creative</h3>
+      <ul class="facts">
+        {%- for c in play.data.credits %}
+        <li><span class="facts__role">{{ c.role }}</span> <span>{{ c.name }}</span></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+    {%- endif %}
+    {%- if play.data.history %}
+    <div class="play__history prose">
+      {{ play.data.history | md | safe }}
+    </div>
+    {%- endif %}
+  </div>
+  {%- endif %}
+
+  {%- set gallery = play.data.gallery or [] %}
+  {%- if gallery.length == 1 %}
+  <figure class="band band--figure">
+    <img class="photo" src="{{ gallery[0].image }}" alt="{{ gallery[0].alt }}" sizes="100vw">
+    {%- if gallery[0].caption %}<figcaption class="wrap">{{ gallery[0].caption }}</figcaption>{% endif %}
+  </figure>
+  {%- elif gallery.length > 1 %}
+  <div class="wrap gallery">
+    {%- for g in gallery %}
+    <figure>
+      <img class="photo" src="{{ g.image }}" alt="{{ g.alt }}" sizes="(min-width: 56em) 33vw, (min-width: 36em) 50vw, 100vw">
+      {%- if g.caption %}<figcaption>{{ g.caption }}</figcaption>{% endif %}
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+</article>
+{%- endfor %}
+
+{%- if playsPage.in_progress %}
+<section class="wrap in-progress" aria-labelledby="in-progress-title">
+  <h2 id="in-progress-title" class="eyebrow">In development</h2>
+  <div class="in-progress__text">{{ playsPage.in_progress | md | safe }}</div>
+</section>
+{%- endif %}

@@ -1,0 +1,108 @@
+---
+layout: layouts/base.njk
+---
+{%- set play = collections.plays | featuredPlay -%}
+{%- set nameParts = site.title.split(" ") -%}
+{%- set latest = collections.news.slice(0, 3) -%}
+
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__heading">
+      <p class="eyebrow">{{ site.tagline }}</p>
+      <h1 class="hero__name">
+        <span>{{ nameParts[0] }}</span>
+        <span class="nowrap">{{ nameParts.slice(1).join(" ") }}</span>
+      </h1>
+    </div>
+    <div class="hero__portrait">
+      <img class="hero__photo photo" src="{{ home.headshot }}" alt="{{ home.headshot_alt }}" sizes="(min-width: 56em) 34vw, 80vw" loading="eager" fetchpriority="high">
+    </div>
+    <div class="hero__intro">
+      <div class="lede">{{ home.intro | md | safe }}</div>
+      <p class="actions">
+        <a class="btn" href="/plays/">The Plays</a>
+        <a class="btn btn--ghost" href="/about/">About Me</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{%- if home.banner %}
+<div class="band">
+  <img class="photo" src="{{ home.banner }}" alt="{{ home.banner_alt }}" sizes="100vw">
+</div>
+{%- endif %}
+
+{%- if play or event.show %}
+<section class="feature wrap{% if not event.show %} feature--solo{% endif %}" aria-label="Current work">
+  {%- if play %}
+  <div class="feature__play">
+    <p class="eyebrow">The current play</p>
+    <h2 class="play-title"><a href="/plays/#{{ play.fileSlug }}">{{ play.data.title }}</a></h2>
+    {%- if play.data.tagline %}
+    <p class="play-tagline">{{ play.data.tagline }}</p>
+    {%- endif %}
+    {%- if play.data.teaser %}
+    <p class="feature__teaser">{{ play.data.teaser | mdInline | safe }}</p>
+    {%- endif %}
+    <p><a class="link-arrow" href="/plays/#{{ play.fileSlug }}">Read about the play</a></p>
+  </div>
+  {%- endif %}
+
+  {%- if event.show %}
+  <aside class="event-card" data-event-date="{{ event.date | isoDate }}" aria-labelledby="event-title">
+    <p class="eyebrow eyebrow--light" data-past="Recent {{ event.kind }}">Upcoming {{ event.kind }}</p>
+    <h2 id="event-title" class="event-card__title">{{ event.title }}</h2>
+    <p class="event-card__date">
+      <time datetime="{{ event.date | isoDate }}">{{ event.date | date("full") }}</time>
+      {%- if event.time %}<br>{{ event.time }}{% endif %}
+    </p>
+    <p class="event-card__venue">
+      {{ event.venue }}
+      {%- if event.address %}<br>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ (event.venue ~ ', ' ~ event.address) | urlencode }}" rel="noopener">{{ event.address }}</a>
+      {%- endif %}
+    </p>
+    {%- if event.details %}
+    <div class="event-card__details">{{ event.details | md | safe }}</div>
+    {%- endif %}
+    {%- if event.link %}
+    <p><a class="btn btn--light" href="{{ event.link }}">{{ event.link_label or "Details" }}</a></p>
+    {%- endif %}
+  </aside>
+  {%- endif %}
+</section>
+{%- endif %}
+
+{%- if home.quote %}
+<section class="quote" aria-label="On the plays">
+  <div class="quote__grid">
+    {%- if home.quote_image %}
+    <div class="quote__photo">
+      <img class="photo" src="{{ home.quote_image }}" alt="{{ home.quote_image_alt }}" sizes="(min-width: 56em) 50vw, 100vw">
+    </div>
+    {%- endif %}
+    <figure class="quote__figure">
+      <blockquote><p>{{ home.quote }}</p></blockquote>
+      <figcaption><a class="link-arrow" href="/about/">{{ site.title }}</a></figcaption>
+    </figure>
+  </div>
+</section>
+{%- endif %}
+
+{%- if latest.length %}
+<section class="news-teaser wrap" aria-labelledby="news-title">
+  <div class="section-head">
+    <h2 id="news-title" class="section-title">News</h2>
+    <a class="link-arrow" href="/press/">All news &amp; press</a>
+  </div>
+  <ul class="news-rows">
+    {%- for item in latest %}
+    <li>
+      <time datetime="{{ item.date | isoDate }}">{{ item.date | date("long") }}</time>
+      <a href="/press/#{{ item.fileSlug }}">{{ item.data.title }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif %}

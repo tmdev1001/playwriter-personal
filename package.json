@@ -1,0 +1,23 @@
+{
+  "name": "malcolm-russell-einhorn-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal website of playwright Malcolm Russell-Einhorn",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "cms": "decap-server"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "3.1.6",
+    "@11ty/eleventy-img": "6.0.4",
+    "markdown-it": "14.3.2"
+  },
+  "devDependencies": {
+    "decap-server": "3.11.3"
+  }
+}

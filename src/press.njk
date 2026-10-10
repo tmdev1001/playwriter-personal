@@ -1,0 +1,80 @@
+---
+layout: layouts/base.njk
+title: News & Press
+permalink: /press/
+description: News about playwright Malcolm Russell-Einhorn and his play Fragments, plus a press kit with photos, biography, and media contact.
+---
+<header class="page-head wrap">
+  <h1 class="page-title">News &amp; Press</h1>
+</header>
+
+{%- if collections.news.length %}
+<section class="wrap" aria-labelledby="news-heading">
+  <h2 id="news-heading" class="section-title">News</h2>
+  <ol class="news-list">
+    {%- for item in collections.news %}
+    <li class="news-item" id="{{ item.fileSlug }}">
+      <time class="news-item__date" datetime="{{ item.date | isoDate }}">{{ item.date | date("long") }}</time>
+      <div class="news-item__body">
+        <h3 class="news-item__title">{{ item.data.title }}</h3>
+        <div class="prose">{{ item.templateContent | safe }}</div>
+        {%- if item.data.link %}
+        <p><a class="link-arrow" href="{{ item.data.link }}">{{ item.data.link_label or "Read more" }}</a></p>
+        {%- endif %}
+      </div>
+      {%- if item.data.image %}
+      <figure class="news-item__photo">
+        <img class="photo" src="{{ item.data.image }}" alt="{{ item.data.image_alt or '' }}" sizes="(min-width: 56em) 22rem, 100vw">
+      </figure>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+{%- endif %}
+
+<section class="press-kit" id="press-kit" aria-labelledby="press-kit-title">
+  <div class="wrap">
+    <h2 id="press-kit-title" class="section-title">Press kit</h2>
+    <p class="section-intro">Photos, biography, and contact details for media and presenters.</p>
+
+    <div class="press-kit__grid">
+      <div class="press-kit__photos">
+        <h3 class="facts-title">Photos</h3>
+        {%- for p in press.photos %}
+        <figure class="press-photo">
+          <img class="photo" src="{{ p.image }}" alt="{{ p.alt }}" sizes="(min-width: 56em) 20rem, 100vw">
+          <figcaption>
+            {%- if p.caption %}<span>{{ p.caption }}</span>{% endif %}
+            <a href="{{ p.image }}" download>Download</a>
+          </figcaption>
+        </figure>
+        {%- endfor %}
+      </div>
+
+      <div class="press-kit__info">
+        {%- if press.short_bio %}
+        <h3 class="facts-title">Short biography</h3>
+        <div class="prose">{{ press.short_bio | md | safe }}</div>
+        {%- endif %}
+        <h3 class="facts-title">Biography</h3>
+        <div class="prose">{{ about.body | md | safe }}</div>
+
+        <h3 class="facts-title">Media inquiries</h3>
+        <p class="press-kit__email"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </div>
+    </div>
+
+    {%- if press.coverage and press.coverage.length %}
+    <h3 class="facts-title press-kit__coverage-title">Press coverage</h3>
+    <ul class="news-rows">
+      {%- for c in press.coverage %}
+      <li>
+        {%- if c.date %}<time datetime="{{ c.date | isoDate }}">{{ c.date | date("long") }}</time>{% endif %}
+        <span><a href="{{ c.url }}" rel="noopener">{{ c.headline }}</a>{% if c.outlet %} <span class="muted">· {{ c.outlet }}</span>{% endif %}</span>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</section>
