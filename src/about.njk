@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 title: About
 permalink: /about/
-description: About playwright Malcolm Russell-Einhorn, from a theater family to a career in international development to writing Fragments.
+description: About playwright Malcolm Russell-Einhorn, from a theater family to a career in international development and academia to writing Fragments.
 ---
 <header class="page-head wrap">
   <h1 class="page-title">{{ about.heading }}</h1>
@@ -14,7 +14,7 @@ description: About playwright Malcolm Russell-Einhorn, from a theater family to 
     <img class="photo" src="{{ about.image }}" alt="{{ about.image_alt }}" sizes="15rem">
   </figure>
   {%- endif %}
-  <div class="about__text prose prose--lead">
+  <div class="about__text prose">
     {{ about.body | md | safe }}
     <p class="actions">
       <a class="btn" href="/plays/">The Plays</a>

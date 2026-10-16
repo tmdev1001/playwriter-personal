@@ -3,9 +3,9 @@ title: Fragments
 order: 1
 featured: true
 tagline: A two-person psychological drama
-teaser: A timeless two-person play that explores the struggles involved in coming to terms—at any age—with oneself and one’s past.
-image: /assets/uploads/fragments-reading-catherine-flye.jpg
-image_alt: Catherine Flye as Sophie Zuchter in a reading of Fragments
+teaser: A timeless two-person play, set in the world of psychoanalysis at a time of great upheaval, that explores the struggles involved in coming to terms—at any age—with one’s identity and one’s past.
+image: /assets/uploads/fragments-reading-hands.jpg
+image_alt: Brett Earnest and Catherine Flye clasp hands during a reading of Fragments
 history: >-
   The play has had two public readings by respected Washington, D.C. actors: the first at George Washington
   University in Washington, D.C. on March 5, 2026, and the second at The Writer’s Center in Bethesda, MD on
@@ -37,4 +37,4 @@ gallery:
 ---
 My two-person play *Fragments*, a psychological drama loosely inspired by actual personalities, features an unlikely pair—an 80-year-old Viennese child psychologist (Sophie Zuchter), attached to her work and daily rituals, and a brash 33-year-old psychoanalyst (Mark Havens), restless and frustrated with his profession—who come together when the latter proposes to mount a retrospective exhibit documenting the old woman’s contributions to her chosen field and to the Clinic that has been the focus of her life for nearly two decades.
 
-What ensues is an intergenerational dance—tentative at first, and then increasingly fraught—as each of them probes the other’s histories and identities, which are considerably more unstable than either of them is willing to admit. Against the backdrop of major transformations in the worlds of psychology and psychiatry in the early 1980s—when the Freudian analytical guild and its veneration of Sigmund Freud were coming under increasingly harsh scrutiny—*Fragments* is a timeless two-person play that explores the struggles involved in coming to terms—at any age—with oneself and one’s past.
+What ensues is an intergenerational dance—tentative at first, and then increasingly fraught—as each of them probes the other’s histories and identities, which are considerably more complicated and unstable than either of them is willing to admit. Against the backdrop of major transformations in the worlds of psychology and psychiatry in the early 1980s—when the Freudian analytical guild and its veneration of Sigmund Freud were coming under increasingly harsh scrutiny—*Fragments* is a timeless two-person play that explores the struggles involved in coming to terms—at any age—with one’s identity and one’s past.

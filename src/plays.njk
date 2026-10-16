@@ -20,21 +20,26 @@ description: Plays by Malcolm Russell-Einhorn, including Fragments, a two-person
     {%- endif %}
   </header>
 
-  <div class="wrap play__grid">
-    <div class="play__synopsis prose">
-      {{ play.templateContent | safe }}
-    </div>
-    {%- if play.data.image %}
-    <figure class="play__photo">
-      <img class="photo" src="{{ play.data.image }}" alt="{{ play.data.image_alt }}" sizes="(min-width: 56em) 40vw, 100vw">
-    </figure>
-    {%- endif %}
-  </div>
+  {%- if play.data.image %}
+  <figure class="band band--natural">
+    <img class="photo" src="{{ play.data.image }}" alt="{{ play.data.image_alt }}" sizes="100vw">
+  </figure>
+  {%- endif %}
 
-  {%- if play.data.history or play.data.readings or play.data.credits %}
-  <div class="wrap play__grid play__grid--history">
+  <div class="wrap play__grid">
+    <div class="play__text">
+      <div class="prose">
+        {{ play.templateContent | safe }}
+      </div>
+      {%- if play.data.history %}
+      <div class="play__history prose">
+        {{ play.data.history | md | safe }}
+      </div>
+      {%- endif %}
+    </div>
+
     {%- if play.data.readings or play.data.credits %}
-    <div class="play__facts">
+    <aside class="play__facts" aria-label="Readings and cast">
       {%- if play.data.readings %}
       <h3 class="facts-title">Readings</h3>
       <ul class="facts">
@@ -54,19 +59,13 @@ description: Plays by Malcolm Russell-Einhorn, including Fragments, a two-person
         {%- endfor %}
       </ul>
       {%- endif %}
-    </div>
-    {%- endif %}
-    {%- if play.data.history %}
-    <div class="play__history prose">
-      {{ play.data.history | md | safe }}
-    </div>
+    </aside>
     {%- endif %}
   </div>
-  {%- endif %}
 
   {%- set gallery = play.data.gallery or [] %}
   {%- if gallery.length == 1 %}
-  <figure class="band band--figure">
+  <figure class="band band--natural band--gallery">
     <img class="photo" src="{{ gallery[0].image }}" alt="{{ gallery[0].alt }}" sizes="100vw">
     {%- if gallery[0].caption %}<figcaption class="wrap">{{ gallery[0].caption }}</figcaption>{% endif %}
   </figure>
@@ -86,6 +85,6 @@ description: Plays by Malcolm Russell-Einhorn, including Fragments, a two-person
 {%- if playsPage.in_progress %}
 <section class="wrap in-progress" aria-labelledby="in-progress-title">
   <h2 id="in-progress-title" class="eyebrow">In development</h2>
-  <div class="in-progress__text">{{ playsPage.in_progress | md | safe }}</div>
+  <div class="in-progress__text prose">{{ playsPage.in_progress | md | safe }}</div>
 </section>
 {%- endif %}

@@ -37,7 +37,7 @@ layout: layouts/base.njk
 <section class="feature wrap{% if not event.show %} feature--solo{% endif %}" aria-label="Current work">
   {%- if play %}
   <div class="feature__play">
-    <p class="eyebrow">The current play</p>
+    <p class="eyebrow">Current play</p>
     <h2 class="play-title"><a href="/plays/#{{ play.fileSlug }}">{{ play.data.title }}</a></h2>
     {%- if play.data.tagline %}
     <p class="play-tagline">{{ play.data.tagline }}</p>
